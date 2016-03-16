@@ -1,5 +1,11 @@
 FROM buildpack-deps:trusty-scm
 
+# Work around https://github.com/dotnet/cli/issues/1582 until Docker releases a
+# fix (https://github.com/docker/docker/issues/20818). This workaround allows
+# the container to be run with the default seccomp Docker settings by avoiding
+# the restart_syscall made by LTTng which causes a failed assertion.
+ENV LTTNG_UST_REGISTER_TIMEOUT 0
+
 # Install the LKG preview build of the .NET CLI. This is done by downloading
 # and installing the .deb file directly because there is a significant latency
 # between the publishing of a .NET CLI Debian package and its availability on
