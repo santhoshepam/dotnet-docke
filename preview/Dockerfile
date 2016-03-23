@@ -18,4 +18,5 @@ RUN apt-get update \
     && wget https://dotnetcli.blob.core.windows.net/dotnet/beta/Installers/Latest/dotnet-ubuntu-x64.latest.deb \
     && dpkg --force-depends -i dotnet-ubuntu-x64.latest.deb \
     && apt-get -f -y --no-remove install \
-    && rm dotnet-ubuntu-x64.latest.deb
+    && rm dotnet-ubuntu-x64.latest.deb \
+    && rm -rf /var/lib/apt/lists/*
