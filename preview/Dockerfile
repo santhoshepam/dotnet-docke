@@ -15,8 +15,14 @@ ENV LTTNG_UST_REGISTER_TIMEOUT 0
 # Because the dpkg command cannot install dependencies, treat errors as
 # warnings and then use apt-get to install the dependencies.
 RUN apt-get update \
-    && wget https://dotnetcli.blob.core.windows.net/dotnet/beta/Installers/Latest/dotnet-ubuntu-x64.latest.deb \
-    && dpkg --force-depends -i dotnet-ubuntu-x64.latest.deb \
+    && wget https://dotnetcli.blob.core.windows.net/dotnet/beta/Installers/Latest/dotnet-host-ubuntu-x64.latest.deb \
+    && wget https://dotnetcli.blob.core.windows.net/dotnet/beta/Installers/Latest/dotnet-sharedframework-ubuntu-x64.latest.deb \
+    && wget https://dotnetcli.blob.core.windows.net/dotnet/beta/Installers/Latest/dotnet-sdk-ubuntu-x64.latest.deb \
+    && dpkg --force-depends -i dotnet-host-ubuntu-x64.latest.deb \
+    && dpkg --force-depends -i dotnet-sharedframework-ubuntu-x64.latest.deb \
+    && dpkg --force-depends -i dotnet-sdk-ubuntu-x64.latest.deb \
     && apt-get -f -y --no-remove install \
-    && rm dotnet-ubuntu-x64.latest.deb \
+    && rm dotnet-host-ubuntu-x64.latest.deb \
+    && rm dotnet-sharedframework-ubuntu-x64.latest.deb \
+    && rm dotnet-sdk-ubuntu-x64.latest.deb \
     && rm -rf /var/lib/apt/lists/*
