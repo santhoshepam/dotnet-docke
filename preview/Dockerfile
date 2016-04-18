@@ -8,7 +8,7 @@ ENV LTTNG_UST_REGISTER_TIMEOUT 0
 
 # Install .NET CLI dependencies
 RUN echo "deb [arch=amd64] http://llvm.org/apt/jessie/ llvm-toolchain-jessie-3.6 main" > /etc/apt/sources.list.d/llvm.list \
-    && wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key|apt-key add - \
+    && wget -q -O - http://llvm.org/apt/llvm-snapshot.gpg.key|apt-key add - \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         clang-3.5 \
@@ -27,8 +27,8 @@ RUN echo "deb [arch=amd64] http://llvm.org/apt/jessie/ llvm-toolchain-jessie-3.6
     && rm -rf /var/lib/apt/lists/*
 
 # Install .NET CLI
-RUN wget https://dotnetcli.blob.core.windows.net/dotnet/beta/Binaries/Latest/dotnet-dev-debian-x64.latest.tar.gz \
-    && mkdir /usr/share/dotnet \
-    && tar -zxvf dotnet-dev-debian-x64.latest.tar.gz -C /usr/share/dotnet \
-    && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet \
-    && rm dotnet-dev-debian-x64.latest.tar.gz
+RUN wget -q https://dotnetcli.blob.core.windows.net/dotnet/beta/Binaries/Latest/dotnet-dev-debian-x64.latest.tar.gz \
+    && mkdir -p /usr/share/dotnet \
+    && tar -zxf dotnet-dev-debian-x64.latest.tar.gz -C /usr/share/dotnet \
+    && rm dotnet-dev-debian-x64.latest.tar.gz \
+    && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
