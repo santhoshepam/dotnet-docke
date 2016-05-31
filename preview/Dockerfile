@@ -27,7 +27,7 @@ RUN echo "deb [arch=amd64] http://llvm.org/apt/jessie/ llvm-toolchain-jessie-3.6
     && rm -rf /var/lib/apt/lists/*
 
 # Install the LKG preview build of the .NET CLI
-RUN wget -q https://dotnetcli.blob.core.windows.net/dotnet/beta/Binaries/Latest/dotnet-dev-debian-x64.latest.tar.gz \
+RUN wget -q https://dotnetcli.blob.core.windows.net/dotnet/preview/Binaries/Latest/dotnet-dev-debian-x64.latest.tar.gz \
     && mkdir -p /usr/share/dotnet \
     && tar -zxf dotnet-dev-debian-x64.latest.tar.gz -C /usr/share/dotnet \
     && rm dotnet-dev-debian-x64.latest.tar.gz \
