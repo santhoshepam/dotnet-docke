@@ -28,3 +28,11 @@ RUN wget -q https://dotnetcli.blob.core.windows.net/dotnet/preview/Binaries/Late
     && tar -zxf dotnet-dev-debian-x64.latest.tar.gz -C /usr/share/dotnet \
     && rm dotnet-dev-debian-x64.latest.tar.gz \
     && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
+
+# Trigger the population of the local package cache
+ENV NUGET_XMLDOC_MODE skip
+RUN mkdir warmup \
+    && cd warmup \
+    && dotnet new \
+    && cd .. \
+    && rm -rf warmup
