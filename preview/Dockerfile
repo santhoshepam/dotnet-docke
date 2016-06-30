@@ -22,8 +22,8 @@ RUN apt-get update \
         zlib1g \
     && rm -rf /var/lib/apt/lists/*
 
-# Install the LKG preview build of the .NET CLI
-RUN wget -q https://dotnetcli.blob.core.windows.net/dotnet/preview/Binaries/Latest/dotnet-dev-debian-x64.latest.tar.gz \
+# Install the LKG rel/1.0.0 build of the .NET CLI
+RUN wget -q https://dotnetcli.blob.core.windows.net/dotnet/Sdk/rel-1.0.0/dotnet-dev-debian-x64.latest.tar.gz \
     && mkdir -p /usr/share/dotnet \
     && tar -zxf dotnet-dev-debian-x64.latest.tar.gz -C /usr/share/dotnet \
     && rm dotnet-dev-debian-x64.latest.tar.gz \
