@@ -1,1 +1,1 @@
-preview/README.md
+rel-1.0.0/README.md
