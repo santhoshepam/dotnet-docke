@@ -6,6 +6,7 @@ using Microsoft.DotNet.VersionTools.Automation;
 using Microsoft.DotNet.VersionTools.Dependencies;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -21,6 +22,8 @@ namespace Dotnet.Docker.Nightly
 
         public static void Main(string[] args)
         {
+            Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
+
             if (ParseArgs(args))
             {
                 DependencyUpdateResults updateResults = UpdateFiles();
@@ -105,7 +108,7 @@ namespace Dotnet.Docker.Nightly
             {
                 Path = path,
                 PackageId = packageId,
-                Regex = new Regex($@"ENV DOTNET_SDK_VERSION (?<version>.*)"),
+                Regex = new Regex($@"ENV DOTNET_SDK_VERSION (?<version>[^\r\n]*)"),
                 VersionGroupName = "version"
             };
         }
