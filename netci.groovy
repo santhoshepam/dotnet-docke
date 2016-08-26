@@ -8,7 +8,7 @@ def newJobName = Utilities.getFullJobName(project, containerOs, isPr)
 
 def newJob = job(newJobName) {
     steps {
-        shell(".build-and-test.sh")
+        shell("./build-and-test.sh")
     }
 }
 
