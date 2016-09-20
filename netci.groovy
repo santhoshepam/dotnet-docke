@@ -8,21 +8,17 @@ def platformList = ['Ubuntu16.04:Debian', 'Windows_2016:WindowsServerCore', 'Win
 platformList.each { platform ->
     def(hostOS, containerOS) = platform.tokenize(':')
     def newJobName = Utilities.getFullJobName(project, containerOS, isPR)
-    def machineLabel = 'latest-or-auto-docker'
+    def machineLabel = (hostOS == 'Windows Nano 2016') ? '' : 'latest-or-auto-docker'
 
     def newJob = job(newJobName) {
         steps {
-            if (hostOS == 'Windows_2016')
-            {
-                batchFile("powershell -NoProfile -Command .\\build-and-test.ps1")
+            if (hostOS == 'Windows_2016') {
+                batchFile("powershell -NoProfile -Command .\\build-and-test.ps1 -OS windowsservercore")
             }
-            else if (hostOS == 'Windows Nano 2016')
-            {
+            else if (hostOS == 'Windows Nano 2016') {
                 batchFile("powershell -NoProfile -Command .\\build-and-test.ps1 -OS nanoserver")
-                machineLabel = ''
             }
-            else
-            {
+            else {
                 shell("./build-and-test.sh")
             }
         }
