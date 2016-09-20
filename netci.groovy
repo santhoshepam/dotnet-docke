@@ -8,6 +8,7 @@ def platformList = ['Ubuntu16.04:Debian', 'Windows_2016:WindowsServerCore', 'Win
 platformList.each { platform ->
     def(hostOS, containerOS) = platform.tokenize(':')
     def newJobName = Utilities.getFullJobName(project, containerOS, isPR)
+    def machineLabel = 'latest-or-auto-docker'
 
     def newJob = job(newJobName) {
         steps {
@@ -18,6 +19,7 @@ platformList.each { platform ->
             else if (hostOS == 'Windows Nano 2016')
             {
                 batchFile("powershell -NoProfile -Command .\\build-and-test.ps1 -OS nanoserver")
+                machineLabel = ''
             }
             else
             {
@@ -26,7 +28,7 @@ platformList.each { platform ->
         }
     }
 
-    Utilities.setMachineAffinity(newJob, hostOS, 'latest-or-auto-docker')
+    Utilities.setMachineAffinity(newJob, hostOS, machineLabel)
     Utilities.standardJobSetup(newJob, project, isPR, "*/${branch}")
     Utilities.addGithubPRTriggerForBranch(newJob, branch, containerOS)
 }
