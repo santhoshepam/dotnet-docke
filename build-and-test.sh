@@ -9,7 +9,7 @@ function build_dockerfiles {
     for dockerfile_dir in $( egrep -v 'nanoserver|windowsservercore' <<< "${1}" | sort ); do
         tag="${docker_repo}:$( sed -e 's/.\///' -e 's/debian\///' -e 's/debian/sdk/' -e 's/\//-/g' <<< "${dockerfile_dir}" )"
         echo "----- Building ${tag} -----"
-        docker build -t "${tag}" "${dockerfile_dir}"
+        docker build --no-cache -t "${tag}" "${dockerfile_dir}"
     done
 }
 

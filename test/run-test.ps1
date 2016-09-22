@@ -7,7 +7,10 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference="Stop"
 
 $dockerRepo="microsoft/dotnet-nightly"
-$repoRoot = Split-Path -parent $PSScriptRoot
+$repoRoot = Split-Path -Parent $PSScriptRoot
+
+# Maps development image versions to the corresponding runtime image version
+$versionMappings=@{}
 
 if ($env:DEBUGTEST -eq $null) {
     $optionalDockerRunArgs="--rm"
@@ -18,8 +21,18 @@ else {
 
 pushd $repoRoot
 
-Get-ChildItem -Directory -Exclude 'test', 'update-dependencies', '.*' | foreach {
-    $tagBase="$($dockerRepo):$($_.Name)-$OS"
+# Loop through each sdk Dockerfile in the repo.  If it has an entry in $versionMappings, then test the sdk, core, and onbuild images; if not, fail.
+Get-ChildItem -Recurse -Filter Dockerfile | where DirectoryName -like "*\$OS" | foreach {
+    $developmentImageVersion = $_.Directory.Parent.Name
+    if ($versionMappings.ContainsKey($developmentImageVersion)) {
+        $runtimeImageVersion = $versionMappings[$developmentImageVersion]
+    }
+    else {
+        $runtimeImageVersion = $developmentImageVersion
+    }
+    
+    $developmentTagBase="$($dockerRepo):$developmentImageVersion-$OS"
+    $runtimeTagBase="$($dockerRepo):$runtimeImageVersion-$OS"
 
     $timeStamp = Get-Date -Format FileDateTime
     $appName="app$timeStamp"
@@ -27,22 +40,22 @@ Get-ChildItem -Directory -Exclude 'test', 'update-dependencies', '.*' | foreach 
 
     New-Item $appDir -type directory | Out-Null
 
-    Write-Host "----- Testing $tagBase-sdk -----"
-    docker run -t $optionalDockerRunArgs -v "$($appDir):c:\$appName" -v "$repoRoot\test:c:\test" --name "sdk-test-$appName" --entrypoint powershell "$tagBase-sdk" c:\test\create-run-publish-app.ps1 "c:\$appName"
+    Write-Host "----- Testing $developmentTagBase-sdk -----"
+    docker run -t $optionalDockerRunArgs -v "$($appDir):c:\$appName" -v "$repoRoot\test:c:\test" --name "sdk-test-$appName" --entrypoint powershell "$developmentTagBase-sdk" c:\test\create-run-publish-app.ps1 "c:\$appName"
     if (-NOT $?) {
-        throw  "Testing $tagBase-sdk failed"
+        throw  "Testing $developmentTagBase-sdk failed"
     }
 
-    Write-Host "----- Testing $tagBase-core -----"
-    docker run -t $optionalDockerRunArgs -v "$($appDir):c:\$appName" --name "core-test-$appName" --entrypoint dotnet "$tagBase-core" "C:\$appName\publish\$appName.dll"
+    Write-Host "----- Testing $runtimeTagBase-core -----"
+    docker run -t $optionalDockerRunArgs -v "$($appDir):c:\$appName" --name "core-test-$appName" --entrypoint dotnet "$runtimeTagBase-core" "C:\$appName\publish\$appName.dll"
     if (-NOT $?) {
-        throw  "Testing $tagBase-core failed"
+        throw  "Testing $runtimeTagBase-core failed"
     }
 
-    Write-Host "----- Testing $tagBase-onbuild -----"
+    Write-Host "----- Testing $developmentTagBase-onbuild -----"
     pushd $appDir
     $onbuildTag = "$appName-onbuild".ToLowerInvariant()
-    New-Item -Name Dockerfile -Value "FROM $tagBase-onbuild" | Out-Null
+    New-Item -Name Dockerfile -Value "FROM $developmentTagBase-onbuild" | Out-Null
     docker build -t $onbuildTag .
     popd
     if (-NOT $?) {
@@ -51,7 +64,7 @@ Get-ChildItem -Directory -Exclude 'test', 'update-dependencies', '.*' | foreach 
 
     docker run -t $optionalDockerRunArgs --name "onbuild-test-$appName" $onbuildTag
     if (-NOT $?) {
-        throw "Testing $tagBase-onbuild failed"
+        throw "Testing $developmentTagBase-onbuild failed"
     }
 
     if ($env:DEBUGTEST -eq $null) {
