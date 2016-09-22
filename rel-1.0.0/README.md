@@ -9,8 +9,8 @@ See [dotnet/dotnet-docker](https://github.com/dotnet/dotnet-docker) for images w
 
 This project is part of the .NET Core CLI tools. You can find samples, documentation, and getting started instructions at the [dotnet/cli] repo.
 
-[![Downloads from Docker Hub](https://img.shields.io/docker/pulls/microsoft/dotnet-nightly.svg)](https://registry.hub.docker.com/u/microsoft/dotnet-nightly)
-[![Stars on Docker Hub](https://img.shields.io/docker/stars/microsoft/dotnet-nightly.svg)](https://registry.hub.docker.com/u/microsoft/dotnet-nightly)
+[![Downloads from Docker Hub](https://img.shields.io/docker/pulls/microsoft/dotnet-nightly.svg)](https://hub.docker.com/r/microsoft/dotnet-nightly)
+[![Stars on Docker Hub](https://img.shields.io/docker/stars/microsoft/dotnet-nightly.svg)](https://hub.docker.com/r/microsoft/dotnet-nightly)
 
 
 ## Supported tags
