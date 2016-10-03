@@ -35,13 +35,13 @@ The `microsoft/dotnet-nightly` images come in different flavors, each designed f
 
 ### `microsoft/dotnet-nightly:<version>-sdk`
 
-This image contains the .NET Core SDK which is comprised of two parts: 
+This image contains the .NET Core SDK which is comprised of two parts:
 
 1. .NET Core
 2. .NET Core command line tools
 
-This image is recommended if you are trying .NET Core for the first time, as it allows both developing and running 
-applications. Use this image for your development process (developing, building and testing applications). 
+This image is recommended if you are trying .NET Core for the first time, as it allows both developing and running
+applications. Use this image for your development process (developing, building and testing applications).
 
 ### `microsoft/dotnet-nightly:<version>-onbuild`
 
@@ -64,7 +64,7 @@ $ docker run -it --rm --name my-running-app my-dotnet-app
 
 ### `microsoft/dotnet-nightly:<version>-core`
 
-This image contains only .NET Core (runtime and libraries) and it is optimized for running [portable .NET Core applications](https://docs.microsoft.com/en-us/dotnet/articles/core/app-types). If you wish to run self-contained applications, please use the `core-deps` image described below. 
+This image contains only .NET Core (runtime and libraries) and it is optimized for running [portable .NET Core applications](https://docs.microsoft.com/en-us/dotnet/articles/core/app-types). If you wish to run self-contained applications, please use the `core-deps` image described below.
 
 ### `microsoft/dotnet-nightly:<version>-core-deps`
 
@@ -76,7 +76,7 @@ This image contains the operating system with all of the native dependencies nee
 ## Windows Containers
 
   Windows Containers images use the `microsoft/windowsservercore` and `microsoft/nanoserver` base OS images from Windows Server 2016 Technical Preview 5.  For more information on Windows Containers and a getting started guide, please see: [Windows Containers Documentation](http://aka.ms/windowscontainers).
-  
+
 -       `rel-1.0.0-windowsservercore-sdk`
 -       `rel-1.0.0-nanoserver-sdk`
 -       `rel-1.0.0-windowsservercore-onbuild`
