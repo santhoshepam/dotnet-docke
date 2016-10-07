@@ -7,7 +7,7 @@ This repository contains `Dockerfile` definitions for Docker images that include
 
 See [dotnet/dotnet-docker](https://github.com/dotnet/dotnet-docker) for images with official releases of [.NET Core](http://dotnet.github.io).
 
-This project is part of the .NET Core CLI tools. You can find samples, documentation, and getting started instructions at the [dotnet/cli] repo.
+This project is part of the .NET Core CLI tools. You can find samples, documentation, and getting started instructions at the [dotnet/cli](https://github.com/dotnet/cli) repo.
 
 [![Downloads from Docker Hub](https://img.shields.io/docker/pulls/microsoft/dotnet-nightly.svg)](https://hub.docker.com/r/microsoft/dotnet-nightly)
 [![Stars on Docker Hub](https://img.shields.io/docker/stars/microsoft/dotnet-nightly.svg)](https://hub.docker.com/r/microsoft/dotnet-nightly)
@@ -17,15 +17,12 @@ This project is part of the .NET Core CLI tools. You can find samples, documenta
 
 ### Development images
 -       [`rel-1.0.0-sdk`, `latest` (*rel-1.0.0/debian/Dockerfile*)](https://github.com/dotnet/dotnet-docker-nightly/blob/master/rel-1.0.0/debian/Dockerfile)
--       [`rel-1.0.0-windowsservercore-sdk`, `windowsservercore` (*rel-1.0.0/windowsservercore/Dockerfile*)](https://github.com/dotnet/dotnet-docker-nightly/blob/master/rel-1.0.0/windowsservercore/Dockerfile)
 -       [`rel-1.0.0-nanoserver-sdk`, `nanoserver` (*rel-1.0.0/nanoserver/Dockerfile*)](https://github.com/dotnet/dotnet-docker-nightly/blob/master/rel-1.0.0/nanoserver/Dockerfile)
 -       [`rel-1.0.0-onbuild`, `onbuild` (*rel-1.0.0/debian/onbuild/Dockerfile*)](https://github.com/dotnet/dotnet-docker-nightly/blob/master/rel-1.0.0/debian/onbuild/Dockerfile)
--       [`rel-1.0.0-windowsservercore-onbuild`, `windowsservercore-onbuild` (*rel-1.0.0/windowsservercore/onbuild/Dockerfile*)](https://github.com/dotnet/dotnet-docker-nightly/blob/master/rel-1.0.0/windowsservercore/onbuild/Dockerfile)
 -       [`rel-1.0.0-nanoserver-onbuild`, `nanoserver-onbuild` (*rel-1.0.0/nanoserver/onbuild/Dockerfile*)](https://github.com/dotnet/dotnet-docker-nightly/blob/master/rel-1.0.0/nanoserver/onbuild/Dockerfile)
 
 ### Runtime images
 -       [`rel-1.0.0-core`, `core` (*rel-1.0.0/debian/core/Dockerfile*)](https://github.com/dotnet/dotnet-docker-nightly/blob/master/rel-1.0.0/debian/core/Dockerfile)
--       [`rel-1.0.0-windowsservercore-core`, `windowsservercore-core` (*rel-1.0.0/windowsservercore/core/Dockerfile*)](https://github.com/dotnet/dotnet-docker-nightly/blob/master/rel-1.0.0/windowsservercore/core/Dockerfile)
 -       [`rel-1.0.0-nanoserver-core`, `nanoserver-core` (*rel-1.0.0/nanoserver/core/Dockerfile*)](https://github.com/dotnet/dotnet-docker-nightly/blob/master/rel-1.0.0/nanoserver/core/Dockerfile)
 -       [`rel-1.0.0-core-deps`, `core-deps` (*rel-1.0.0/debian/core-deps/Dockerfile*)](https://github.com/dotnet/dotnet-docker-nightly/blob/master/rel-1.0.0/debian/core-deps/Dockerfile)
 
@@ -75,14 +72,8 @@ This image contains the operating system with all of the native dependencies nee
 
 ## Windows Containers
 
-  Windows Containers images use the `microsoft/windowsservercore` and `microsoft/nanoserver` base OS images from Windows Server 2016 Technical Preview 5.  For more information on Windows Containers and a getting started guide, please see: [Windows Containers Documentation](http://aka.ms/windowscontainers).
+  Windows Containers images use the `microsoft/windowsservercore` base OS image from Windows Server 2016.  For more information on Windows Containers and a getting started guide, please see: [Windows Containers Documentation](http://aka.ms/windowscontainers).
 
--       `rel-1.0.0-windowsservercore-sdk`
 -       `rel-1.0.0-nanoserver-sdk`
--       `rel-1.0.0-windowsservercore-onbuild`
 -       `rel-1.0.0-nanoserver-onbuild`
--       `rel-1.0.0-windowsservercore-core`
 -       `rel-1.0.0-nanoserver-core`
-
-
-[dotnet/cli]: https://github.com/dotnet/cli
